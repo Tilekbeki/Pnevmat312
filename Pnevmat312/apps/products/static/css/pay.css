@@ -1,0 +1,26 @@
+.pay {
+    padding: 60px;
+}
+
+.pay__content {
+    background-color: #fff;
+    padding: 60px 30px;
+}
+
+.pay__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+h1{
+    margin-bottom: 30px;
+}
+@media (max-width: 575px){
+    .pay {
+        padding: 10px;
+    }
+    .container {
+        width: 100%;
+        padding:0 8px;
+    }
+}

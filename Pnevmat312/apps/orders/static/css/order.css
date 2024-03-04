@@ -1,0 +1,64 @@
+.order {
+    padding: 60px 0;
+}
+
+.order__content {
+    background: #fff;
+    padding: 60px 20px;
+}
+
+.order__items {
+    border: 1px solid #CECECE;
+    padding: 30px;
+    
+    gap: 20px;
+}
+.order__item-info {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+.order__complete {
+    display: flex;
+    gap: 10px;
+}
+.order__complete input {
+    width: 200px;
+    height: 30px;
+    padding: 5px;
+}
+.order__complete .order__btn {
+    width: 135px;
+    height: 30px;
+    color: #fff;
+    border-radius: 4px;
+    background: #C70101;
+    border: none;
+    cursor: pointer;
+}
+.order__title {
+    margin-bottom: 30px;
+}
+.order__item {
+    margin-left: 18px;
+}
+@media (max-width:575px){ 
+    .order {
+        padding: 60px 0 52vh 0;
+    }
+    .container {
+        width: 100%;
+        padding: 0 8px;
+    }
+    .order__complete {
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+    }
+    .order__complete input {
+        width: 100%;
+    }
+    .order__complete .order__btn {
+        width: 100%;
+    }
+}

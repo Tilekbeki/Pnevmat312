@@ -1,0 +1,96 @@
+{% block title %}{% endblock title %}
+{% block staticfiles %}
+{% load  static %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock staticfiles %}
+
+{% block content %}
+<div class="auth">
+    <!-- <h1>Регистрация</h1>
+    {% for error in form_registration.non_field_errors %}
+    <span>{{ error }}</span>
+    {% endfor %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form_registration %}
+            <p>
+                {{ field.label }}
+            </p>
+            {{ field }}
+        {% endfor %}
+        <button type="submit" name="registration_button">Регистрация</button>
+    </form>
+
+    <h1>Авторизация</h1>
+    {% for error in form_authentication.non_field_errors %}
+    <span>{{ error }}</span>
+    {% endfor %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form_authentication %}
+            <p>
+                {{ field.label }}
+            </p>
+            {{ field }}
+        {% endfor %}
+        <button type="submit" name="authentication_button">Войти</button>
+    </form> -->
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h1>Создать аккаунт</h1>
+                {% for field in form_registration %}
+                    {{ field.label }}
+                    {{ field }}
+                {% endfor %}
+                <!-- <input type="text" placeholder="Name" />
+                <input type="email" placeholder="Email" />
+                <input type="password" placeholder="Password" /> -->
+                <button type="submit" name="registration_button">Зарегестрироваться</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h1>Войти</h1>
+                {% for field in form_authentication %}
+                {{ field.placeholder }}
+                    {{ field.label }}
+                    {{ field }}
+                {% endfor %}
+                <a href="/user/password-reset/">Забыли пароль?</a>
+                <button type="submit" name="authentication_button">Войти</button>
+                {% for error in form_registration.non_field_errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Добро пожаловать</h1>
+                    <p>Чтобы приступить к заказу авторизируйтесь.</p>
+                    <button class="ghost" id="signIn">Войти</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Привет!</h1>
+                    <p>Нету аккаунт? Не беда, зарегистрируйся и будь с нами!</p>
+                    <button class="ghost" id="signUp">Зарегистрироваться</button>
+                    {% for error in form_registration.non_field_errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <a href="/" class="comeback">вернуться назад</a>
+        <a href="/" class="logo"><img src="{% static  '/img/logo.png' %}" alt="logo"></a>
+    </div>
+
+
+</div>
+{% load static %}
+<script src="{% static "/js/auth.js" %}"></script>
+{% endblock content %}

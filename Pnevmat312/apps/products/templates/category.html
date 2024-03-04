@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}Добро пожаловать!{% endblock title %}
+{% block staticfiles %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/category.css' %}">
+{% endblock staticfiles %}
+{% block content %}
+<div class="category">
+    <div class="container">
+        <div class="category__wrapper">
+            <div class="catalog">
+                <div class="catalog__title">КАТАЛОГ</div>
+                <ul class="catalog__items">
+                    {% for category in allcat %}
+                        <li class="catalog__item">
+                            <a href="/category/?category={{ category.name }}" class="catalag__item-href">{{category.name}}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="category__filter">
+                <div class="category__search">
+                    <form action="" method="get">
+                        <input required type="text" name="search" placeholder="Найти товар">
+                        <button type="submit"><img src="../static/img/search-icon.svg" alt="search-icon"></button>
+                        <div class="category__price">
+                            <label>цена</label>
+                            <input required type="number" name="from" placeholder="от" type="text" class="fromPrice">
+                            <input required type="number" name="to" placeholder="до" type="text" class="toPrice">
+                        </div>
+                        <div class="category__selection">
+                            <label for="sort-by">Сортировать по:</label>
+                            <select id="sort-by">
+                            <option value="low-to-high">Сначала недорогие</option>
+                            <option value="high-to-low">Сначала дорогие</option>
+                            <option value="recommended">Сначала рекомендуемые</option>
+                            <option value="discounted">Сначала по скидке</option>
+                            </select>
+                        </div>
+                        <input type="submit" value="искать" class="category__search-btn">
+                      </form>
+                </div>
+            </div>
+            <div class="category__products">
+                <h1 class="category__title">
+                    {{category.name}}
+                </h1>
+                <div class="category__products-list">
+                    {% for product in products %}
+                            {% if product.type == 'NE' %}
+                            <div class="products__item">
+                                <img src="../static/img/product.jpg" alt="product" class="products__item-cover">
+                                <div class="products__item-title">{{product.name}}</div>
+                                <div class="products__item-status">&#10004; в наличии</div>
+                                <div class="products__item-price">{{product.price}} сом</div>
+                                <a href="/products/{{ product.id }}" class="products__item-moreBtn">
+                                    <button>ПОДРОБНЕЕ</button>
+                                </a>
+                            </div>
+                            {% endif %}
+                    {% endfor %}
+                </div>
+                <button class="showMore">БОЛЬШЕ</button>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<script src="../static/js/category.js"></script>
+{% endblock content %}

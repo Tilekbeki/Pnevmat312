@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+{% block title %}Добро пожаловать!{% endblock title %}
+{% block staticfiles %}
+{% load  static %}
+<link  rel="stylesheet" href="{% static 'css/tiny-slider.css' %}">
+<link  rel="stylesheet" href="{% static 'css/mainPage.css' %}">
+{% endblock staticfiles %}
+{% block content %}
+    <div class="promo">
+        <div class="promo__slider">
+            {% for im in images %}
+                <div class="promo__slider-slide">
+                    <img src="{{ im.image.url }}" alt="slide">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="offers" id="catalog">
+        <div class="container">
+            <div class="offers__wrapper">
+                <div class="catalog">
+                    <div class="catalog__title">КАТАЛОГ</div>
+                    <ul class="catalog__items">
+                        {% for category in categories %}
+                            <li class="catalog__item">
+                                <a href="category/?category={{ category.name }}" class="catalag__item-href">{{category.name}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="offers__items">
+                    <div class="offers__item">
+                        <a href="#">
+                            <img src="../static/img/offer 1.jpg" alt="offer" class="offers__item-img">
+                        </a>
+                    </div>
+                    <div class="offers__item">
+                        <a href="#">
+                            <img src="../static/img/offer 2.jpg" alt="offer" class="offers__item-img">
+                        </a>
+                    </div>
+                    <div class="offers__item">
+                        <a href="#">
+                            <img src="../static/img/offer 3.jpg" alt="offer" class="offers__item-img">
+                        </a>
+                    </div>
+                    <div class="offers__item">
+                        <a href="#">
+                            <img src="../static/img/offer 4.jpg" alt="offer" class="offers__item-img">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="products-promo">
+        <div class="container">
+            <div class="products-promo__tabs">
+                <ul class="products-promo__titles">
+                    <li class="active">РЕКОМЕНДУЕМ</li>
+                    <li>НОВИНКА</li>
+                    <li>ТОВАРЫ СО СКИДКОЙ</li>
+                </ul>
+                <div class="products-promo__wrapper">
+                    <div class="tabs_content tabs_content-active">
+                        <div class="products-slider__recomended">
+                            {% for product in products %}
+                            {% if product.type == 'RE' %}
+                            {% for img in im %}
+                            {% if img.id_product == product %}
+                            <div class="products__item wow animate__fadeInLeft" data-wow-duration="2s" style="visibility: visible; animation-duration: 2s; animation-name: fadeInLeft;">
+                                <img src="{{ img.image.url }}" alt="product" class="products__item-cover">
+                                <div class="products__item-title">{{product.name}}</div>
+                                <div class="products__item-status">{% if product.quantity %}&#10004; в наличии{% else %}🖌 под заказ {% endif %}</div>
+                                <div class="products__item-price">{{product.price}} сом</div>
+                                <a href="/products/{{ product.id }}" class="products__item-moreBtn">
+                                    <button>ПОДРОБНЕЕ</button>
+                                </a>
+                            </div>   
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                            {% endfor %}
+                            
+                        </div>
+                        <div id="Controls-rec">
+                            <button class="rec-previous">&#9668;</button>
+                            <button class="rec-next">&#9658;</button>
+                        </div>
+                    </div>
+                    <div class="tabs_content">
+                        <div class="products-slider__new">
+                            {% for product in products %}
+                            {% if product.type == 'NE' %}
+                            <div class="products__item animate__fadeInLeft" style="visibility: visible; animation-duration: 2s; animation-name: fadeInLeft;">
+                                <img src="../static/img/product.jpg" alt="product" class="products__item-cover">
+                                <div class="products__item-title">{{product.name}}</div>
+                                <div class="products__item-status">&#10004; в наличии</div>
+                                <div class="products__item-price">{{product.price}} сом</div>
+                                <a href="/products/{{ product.id }}" class="products__item-moreBtn">
+                                    <button>ПОДРОБНЕЕ</button>
+                                </a>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                            
+                        </div>
+                        <div id="Controls-new">
+                            <button class="new-previous">&#9668;</button>
+                            <button class="new-next">&#9658;</button>
+                        </div>
+                    </div>
+                    <div class="tabs_content">
+                        <div class="products-slider__saleon">
+                            {% for product in products %}
+                            {% if product.type == 'SA' %}
+                            <div class="products__item animate__fadeInLeft" style="visibility: visible; animation-duration: 2s; animation-name: fadeInLeft;">
+                                <img src="../static/img/product.jpg" alt="product" class="products__item-cover">
+                                <div class="products__item-title">{{product.name}}</div>
+                                <div class="products__item-status">&#10004; в наличии</div>
+                                <div class="products__item-price">{{product.price}} сом</div>
+                                <a href="/products/{{ product.id }}" class="products__item-moreBtn">
+                                    <button>ПОДРОБНЕЕ</button>
+                                </a>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                            
+                        </div>
+                        <div id="Controls-saleon">
+                            <button class="saleon-previous">&#9668;</button>
+                            <button class="saleon-next">&#9658;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="actions" id="actions">
+        <div class="container">
+            <h2 class="actions__title wow animate__fadeInUp" data-wow-duration="3s" style="visibility: visible; animation-duration: 2s; animation-name: fadeInUp;">ДЕЙСТВУЮЩИЕ АКЦИИ</h2>
+            <div class="actions__content">
+                <div class="actions__slider">
+                    {% for action in actions %}
+                    <div class="actions__item wow animate__fadeInLeft" data-wow-duration="2s" style="visibility: visible; animation-duration: 2s; animation-name: fadeInLeft;">
+                        <img src="{{ action.image.url }}" alt="action" class="actions__item-cover">
+                        <div class="actions__item-deadline">действует: {{action.date_published.day}}.{{action.date_published.month}}.{{action.date_published.year}} - {{action.deadline.day}}.{{action.deadline.month}}.{{action.deadline.year}}</div>
+                        <div class="actions__item-title">{{action.title}}</div>
+                        <div class="actions__item-descr">{{action.description}}</div>
+                        <a href="actions/{{ action.id }}" class="actions__item-moreBtn">
+                            <button>ПОДРОБНЕЕ</button>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div id="Controls-action">
+                    <button class="action-previous">&#9668;</button>
+                    <button class="action-next">&#9658;</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="about__title wow animate__fadeInUp" data-wow-duration="3s" style="visibility: visible; animation-duration: 3s; animation-name: fadeInUp;">ИНТЕРНЕТ-МАГАЗИН PNEVMAT312</h2>
+            <div class="about__content">
+                <div class="about__descr wow animate__fadeIn" data-wow-duration="3s" style="visibility: visible; animation-duration: 3s; animation-name: fadeIn;">
+                    <b>PNEVMAT312</b> - интернет-магазин, который предлагает <b>широкий выбор товаров</b> для любителей спортивной 
+                    стрельбы, туризма, охоты и других видов активного отдыха.<br>
+                    <br>
+                    В каталоге магазина вы найдете <b>пневматические пистолеты и винтовки от известных производителей,
+                        аксессуары для удобства использования оружия</b>, средства <b>самообороны, экипировку и снаряжение.</b>
+                    <br><br>
+                    Для удобства выбора все товары снабжены <b>фотографиями и подробным описанием.</b>
+                    Мы гарантируем <b>качество товаров</b>. Заказывайте у нас и получайте удовольствие от своего хобби!
+                    Мы ценим каждого нашего клиента и всегда готовы предоставить <b>профессиональную консультацию</b> по любому вопросу. Наша команда с удовольствием поможет вам выбрать подходящий товар и ответит на все ваши вопросы.
+                    <br><br>
+                    <b>Заказывайте</b> товары для активного отдыха и спорта на Pnevmat24 - мы делаем все возможное, чтобы вы получили <b>максимальное удовольствие</b> от своего хобби!
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="geolocation" id="contacts">
+        <div class="geolocation__contacts">
+            <div class="geolocation__address">Бишкек, Боконбаева 251</div>
+            <a href="tel:+996705325227" class="geolocation__phone">+996 705 325 227</a>
+            <div class="geolocation__social">
+                <a href="#"><img src="../static/img/whatsapp.png" alt="icon"></a>
+                <a href="#"><img src="../static/img/telegram.png" alt="icon"></a>
+                <a href="#"><img src="../static/img/instagram-icon.svg" alt="icon"></a>
+            </div>
+        </div>
+
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1229.4861711345304!2d74.57140371604969!3d42.86804414174102!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x389ec8390329eba1%3A0xf76aff976c441ef1!2zMzAwINGD0LsuINCR0L7QutC-0L3QsdCw0LXQstCwLCDQkdC40YjQutC10LosINCa0YvRgNCz0YvQt9GB0YLQsNC9!5e0!3m2!1sru!2sru!4v1703347620253!5m2!1sru!2sru" width="100%" height="518" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+{% load  static %}
+<script src="../static/js/tiny-slider.js"></script>
+    <script src="../static/js/mainPage.js"></script>
+{% endblock content %}

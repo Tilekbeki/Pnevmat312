@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Добро пожаловать!{% endblock title %}
+{% block staticfiles %}
+{% load  static %}
+<link  rel="stylesheet" href="{% static 'css/action.css' %}">
+{% endblock staticfiles %}
+{% block content %}
+<div class="actions">
+    <div class="container">
+        <div class="actions__wrapper">
+            <div class="actions__item">
+                <div class="actions__item-img">
+                    <img src="{{ action.image.url }}" alt="action">
+                </div>
+                <div class="actions__item-info">
+                    <h1 class="actions__item-title">{{ action.title }}</h1>
+                    <div class="actions__item-deadline">Действует с {{action.date_published.day}}.{{action.date_published.month}}.{{action.date_published.year}} до {{action.deadline.day}}.{{action.deadline.month}}.{{action.deadline.year}}</div>
+                    <div class="actions__item-desTitle">Описание:</div>
+                    <div class="actions__item-descr">{{ action.description }}</div>
+                </div>
+            </div>
+            <div class="actions__products">
+                <div class="category__products-list">
+                    {% for product in products %}
+                            {% if product.type == 'NE' %}
+                            <div class="products__item">
+                                <img src="../static/img/product.jpg" alt="product" class="products__item-cover">
+                                <div class="products__item-title">{{product.name}}</div>
+                                <div class="products__item-status">&#10004; в наличии</div>
+                                <div class="products__item-price">{{product.price}} сом</div>
+                                <a href="#" class="products__item-moreBtn">
+                                    <button>ПОДРОБНЕЕ</button>
+                                </a>
+                            </div>
+                            {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

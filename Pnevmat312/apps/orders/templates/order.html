@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}Корзина{% endblock title %}
+{% block staticfiles %}
+{% load static %}
+<link  rel="stylesheet" href="{% static 'css/order.css' %}">
+{% endblock staticfiles %}
+{% block content %}
+    <div class="order">
+        <div class="container">
+            <div class="order__content">
+                <h1 class="order__title">Товары в корзине</h1>
+                <p class="message" style="color:gray; display: none;">корзина пустая...</p>
+                <ol class="order__items">
+                    {% for order in orders %}
+                        {% for cart in carts %}
+                            {% if cart.id_order == order %}
+                            <li class="order__item">
+                                <div class="order__item-info">
+                                    <h3>{{ cart.id_product.name }}</h3>
+                                    <div>{{ cart.quantity }} шт.</div>
+                                    <form action="{% url 'delete_cart' cart.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                          Удалить
+                                        </button>
+                                      </form>
+                                </div>
+                                
+                            </li>
+                                
+
+                            {% endif %}
+                    {% endfor %}
+                    {% endfor %}
+                    <form method="POST" enctype="multipart/form-data" class="order__complete">
+                        {% csrf_token %}
+                        <input required name="address" placeholder="Введите телефон">
+                        <input type="text" name="orders" class="order__input" placeholder="Ваши заказы" value="{% for order in orders %}
+                        {% for cart in carts %}
+                            {% if cart.id_order == order %}
+                                    {{ cart.id_product.name }}
+                                    {{ cart.quantity }} шт.,
+                                
+                            
+                            {% endif %}
+                    {% endfor %}
+                    {% endfor %}" style="display: none;">
+                        <input name="complete" type="submit" value="Оформить заказ" class="order__btn">
+                    </form>
+                </ol>
+                
+            </div>
+        </div>
+    </div>
+    <!-- {% for order in orders %}
+        {% for cart in carts %}
+            {% if cart.id_order == order %}
+                <h1>{{ cart.id_product.name }}</h1>
+                <a>{{ cart.quantity }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if order.placed == False %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input name="address">
+                <button name="complete" type="submit">Оформить заказ</button>
+            </form>
+        {% endif %}
+    {% endfor %} -->
+
+    {% load  static %}
+<script src="../static/js/jquery-1.11.0.min.js"></script>
+    <script src="../static/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../static/js/jquery.maskedinput.js"></script>
+    <script src="../static/js/input.js"></script>
+{% endblock content %}

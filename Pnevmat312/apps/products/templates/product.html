@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% block title %}Товар {{ product.name }}{% endblock title %}
+{% block staticfiles %}
+{% load static %}
+<link  rel="stylesheet" href="{% static 'css/tiny-slider.css' %}">
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+{% endblock staticfiles %}
+{% block content %}
+  <div class="product">
+    <div class="container">
+      <div class="product__wrapper">
+        <form method="POST" enctype="multipart/form-data" class="product__item">
+          {% csrf_token %}
+          <div class="product__item-imgs">
+              <div id="customize">
+                {% if images %}
+                  {% for im in images %}
+                <div class="product__slider-photo">
+                  <img src="{{ im.image.url }}" alt="photo">
+                </div>
+                  {% endfor %}
+                {% endif %}
+                {% if product.video %}
+                <div class="product__slider-photo">
+                  <iframe width="1225" height="100%" src="{{ product.video }}"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                {% endif %}
+              </div>
+              <div class="customize-tools">
+                <ul class="thumbnails" id="customize-thumbnails" aria-label="Carousel Pagination">
+                  <!-- <li data-nav="0" aria-label="Carousel Page 1" aria-controls="customize" class="product__min-img" tabindex="-1">
+                    <img src="{% static 'img/offer 1.jpg' %}" alt="" >
+                  </li>
+                  <li data-nav="1" aria-label="Carousel Page 2" aria-controls="customize" class="product__min-img" tabindex="-1">
+                    <img src="{% static 'img/offer 2.jpg' %}" alt="" >
+                  </li>
+                  <li data-nav="2" aria-label="Carousel Page 3 (Current Slide)" aria-controls="customize" class="product__min-img">
+                    <img src="{% static 'img/offer 3.jpg' %}" alt="" >
+                  </li> -->
+                  {% if images %}
+                  {% for im in images %}
+                  <li data-nav="0" aria-label="Carousel Page 1" aria-controls="customize" class="product__min-img" tabindex="-1">
+                    <img src="{{ im.image.url }}" alt="product-img" >
+                          
+                  </li>
+                  {% endfor %}
+                {% endif %}
+                {% if product.video %}
+                <li style="position: relative;" data-nav="0" aria-label="Carousel Page 1" aria-controls="customize" class="product__min-img" tabindex="-1">
+                <iframe width="1225" height="689" src="{{ product.video }}"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                  <div class="video-block"></div>
+              </li>
+                {% endif %}
+                </ul>
+              </div>
+          </div>
+          <div class="product__item-info">
+            <h1 class="product__item-title">{{ product.name }}</h1>
+            <div class="div">{% for brand in brand %}
+                {% if product.id_brand == brand %}
+                  <li>Производитель: {{ brand.name }}</li>
+                {% endif %}
+            {% endfor %}</div>
+            <div class="product__item-status">{% if product.quantity %}&#10004; в наличии{% else %}🖌 под заказ {% endif %}</div>
+            <div>Рейтинг {{ avg_rating }} / 5</div>
+            <div class="product__item-subwrapper">
+              <div class="product__item-price">{{ product.price }} сомов</div>
+              <div class="product__item-quantity">
+                  <span class="change minus min">
+                    <span>-</span>
+                  </span>
+                  <div class="counter-block">
+                    <input class="counter" value="1" name="counter" id="counter" min="1">
+                    <div class="counter-wrap"></div>
+                  </div>
+                  <span class="change plus">
+                      <span>+</span>
+                  </span>
+              </div>
+              <button name="buy_button" type="submit" class="product__item-addbtn">В корзину</button>
+            </div>
+            <hr class="divider">
+            <div class="product__item-desTitle">Описание:</div>
+            <div class="product__item-descr">{{ product.description }}</div>
+            <div class="product__item-desTitle">Характеристика:</div>
+            <ul class="product__item-details">
+              {% for property in properties %}
+                {% if property.id_product == product %}
+                  <li>{{ property.name }}: {{ property.value }}</li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        </form>
+        
+        <section class="product__feedbacks">
+            <h2 class="product__feedbacks-title">Отзывы</h2>
+            <hr class="divider">
+            <div class="product__feedbacks-addcomment">
+              <form method="POST" enctype="multipart/form-data" onsubmit="alert('товар в корзине!')">
+                {% csrf_token %}
+                  <input required type="text" name="description">
+                <div class="category__grade">
+                  <div class="category__selection">
+                    <label for="sort-by">Оценить</label>
+                    <select id="sort-by" name="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    </select>
+                </div>
+                  <input type="submit" value="НАПИСАТЬ" name="feedback" class="addCom" placeholder="Ваш комментарий" onclick="alert('товар в корзине!')">
+                </div>
+            </form>
+            </div>
+            <div class="product__feedbacks-list">
+              <div class="message" style="color:gray; display: none;">Пока отзывов нет, будьте первым)</div>
+              {% for feedback in feedbacks %}
+              <div class="product__feedbacks-person">
+                <div class="product__person-name">{{ feedback.id_user }}</div>
+                <div class="product__person-date">{{ feedback.date_published }}</div>
+                <div class="product__person-coment">{{ feedback.description }}</div>
+                <div class="product__person-grade">{{ feedback.rating }}/5</div>
+              </div>
+              {% endfor %}
+            </div>
+        </section>
+      </div>
+      <!-- <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>{{ product.name }}</h1>
+        <p>{{ product.description }}</p>
+    
+        {% if images %}
+          {% for im in images %}
+            <p><img src="{{ im.image.url }}" width="500px" title="№{{ exercise.id }}"></p>
+          {% endfor %}
+        {% endif %}
+    
+        <span class="change minus min">
+            <span>-</span>
+        </span>
+        <div class="counter-block">
+          <input class="counter" value="1" name="counter" id="counter" min="1">
+          <div class="counter-wrap"></div>
+        </div>
+        <span class="change plus">
+            <span>+</span>
+        </span>
+    
+        <button name="buy_button" type="submit">В корзину</button>
+      </form> -->
+    </div>
+  </div>
+{% load static %}
+<script src="{% static 'js/tiny-slider.js' %}"></script>
+<script src="{% static 'js/product.js' %}"></script>
+{% endblock content %}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Title{% endblock title %} | Pnevmat312</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    {% block staticfiles %}
+
+    {% endblock staticfiles %}
+</head>
+<body>
+    {% block navbar %}
+        <header>
+        <div class="container">
+            <div class="top">
+                <ul class="top__menu">
+                    <li><a href="/guarantees">Гарантии</a></li>
+                    <li><a href="/pay">Оплата</a></li>
+                    <li><a href="/fabricators">Производители</a></li>
+                </ul>
+                {% if user.is_authenticated %}
+                    <div class="top__profile">
+                        <a href="/user/profile" class="top__username">{{ user.username }}</a>
+                    <a href="/user/logout/">выход</a>
+                    </div>
+                {% else %}
+                    <ul class="top__auth">
+                        <li><a href="/user/auth">Вход</a></li>
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+        <div class="header">
+            <div class="container">
+                <div class="header__info">
+                    <div class="header__logo wow animate__fadeInUp" data-wow-duration="3s" style="visibility: visible; animation-duration: 3s; animation-name: fadeInUp;">
+                        <a href="/"><img src="{% static  '/img/logo.png' %}" alt="logo"></a>
+                    </div>
+                    <div class="header__search">
+                        <a href="/category/?category=Ножи" style="cursor: pointer;">
+                            <form action="" method="get">
+                                <input name="search" placeholder="Найти товар" type="text">
+                                <button type="submit"><img src="{% static  '/img/search-icon.svg' %}" alt="search-icon"></button>
+                              </form>
+                        </a>
+                    </div>
+                    <address class="header__contacts">
+                        <a href="tel:+996705325227" class="header__phone">+996 705 325 227</a>
+                        <span class="header__address">г. Бишкек, Боконбаева 251</span>
+                    </address>
+                    <div class="header__cart">
+                        <a href="/orders"><img src="{% static  '/img/cart.svg' %}" alt="cart"></a>
+                        <a href="#">Корзина</a>
+                    </div>
+                </div>
+                <nav class="header__menu">
+                    <ul>
+                        <li><a href="#catalog">КАТАЛОГ</a></li>
+                        <li><a href="#actions">АКЦИИ</a></li>
+                        <li><a href="#about">О НАС</a></li>
+                        <li><a href="#contacts">КОНТАКТЫ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </header>
+    {% endblock navbar %}
+
+    {% block content %}
+
+    {% endblock content %}
+    <footer class="footer">
+        <div class="footer-container">
+          <div class="footer-col">
+            <img src="{% static  '/img/logo.png' %}" alt="logo">
+            <p>интернет-магазин, который предлагает широкий выбор товаров для любителей спортивной стрельбы, туризма, охоты и других видов активного отдыха.</p>
+          </div>
+          <div class="footer-col">
+            <h4>КОНТАКТЫ</h4>
+            <p><a href="mailto:email@example.com?subject=Enquiry&body=Hello, I have a question">Пишите на почту</a></p>
+            <p>Звоните: <a href="tel:+996705325227">+996 705 325 227</a></p>
+            <p><a href="https://wa.me/1234567890?text=Hello,%20I%20have%20a%20question">Пишите в whatsapp</a></p>
+            <p><a href="mailto:email@example.com?subject=Enquiry&body=Hello, I have a question">Пишите в телеграм</a></p>
+          </div>
+          <div class="footer-col" id="footer-contacts">
+            <h4>Меню</h4>
+            <nav>
+              <ul>
+                <li><a href="/">ГЛАВНАЯ</a></li>
+                <li><a href="#catalog">КАТАЛОГ</a></li>
+                <li><a href="#actions">АКЦИИ</a></li>
+                <li><a href="#about">О НАС</a></li>
+                <li><a href="#contacts">КОНТАКТЫ</a></li>
+              </ul>
+            </nav>        
+          </div>
+        </div>
+        <div class="bottombar">Copyright © 2024 Pnevmat312. All rights reserved.</div>
+      </footer>
+{% load  static %}
+    <script src="{% static "/js/wow.js" %}"></script>
+    <script src="{% static "js/script.js" %}"></script>
+</body>
+</html>

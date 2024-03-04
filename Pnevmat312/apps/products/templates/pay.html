@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Добро пожаловать!{% endblock title %}
+{% block staticfiles %}
+{% load  static %}
+<link  rel="stylesheet" href="{% static 'css/pay.css' %}">
+{% endblock staticfiles %}
+{% block content %}
+
+<div class="pay">
+    <div class="container">
+        <div class="pay__content">
+            <h1>Оплата</h1>
+            <div class="pay__wrapper">
+                <p>На странице оплаты мы хотели бы сообщить, что оплата возможна только при 
+                    получении товара лично в пункте выдачи или в офисе. 
+                    Также обращаем ваше внимание на то, что <span style="color: red;"><b>продажа товаров осуществляется исключительно лицам старше 18 лет</b></span>. 
+                    Просим учесть это при совершении покупки.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

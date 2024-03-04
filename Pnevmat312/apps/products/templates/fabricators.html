@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Добро пожаловать!{% endblock title %}
+{% block staticfiles %}
+{% load  static %}
+<link  rel="stylesheet" href="{% static 'css/fabricators.css' %}">
+{% endblock staticfiles %}
+{% block content %}
+
+<div class="fabricators">
+    <div class="container">
+        <div class="fabricators__content">
+            <h1>Производители</h1>
+            <div class="fabricators__wrapper">
+                {% for fabricator in fabricators %}
+                <div class="fabricators__item">
+                     <img src="{{ fabricator.image.url }}" alt="бренд">
+                     <div class="fabricators__item-info">
+                        <h3>{{ fabricator.name }}</h3>
+                        <p>{{ fabricator.description }}</p>
+                     </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

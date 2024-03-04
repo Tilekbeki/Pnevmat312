@@ -1,0 +1,236 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&family=Merienda:wght@400;700&family=Ubuntu:wght@400;500&display=swap");
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: "Ubuntu", sans-serif;
+  }
+  body {
+    background: #F7F7F9;
+  }
+.form-container form {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    padding:  0 50px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.social-container {
+    margin: 20px 0;
+}
+
+.social-container a {
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    height: 40px;
+    width: 40px;
+}
+
+.form-container input {
+    background: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+}
+
+form a{
+    color:#000;
+    margin-bottom: 10px;
+}
+
+button {
+    border-radius: 20px;
+    border: 1px solid #ff4b2b;
+    background: #C70101;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+
+button:active {
+    transform: scale(.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+button.ghost {
+    background: transparent;
+    border-color: #fff;
+}
+
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all .6s ease-in-out;
+}
+
+.sign-in-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.sign-up-container {
+    left: 0;
+    width: 50%;
+    z-index: 1;
+    opacity: 0;
+}
+
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform .6s ease-in-out;
+    z-index: 100;
+}
+
+.overlay {
+    background: #C70101;
+    background: linear-gradient(to right, #ff4b2b, #C70101) no-repeat 0 0 / cover;
+    color: #fff;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateY(0);
+    transition: transform .6s ease-in-out;
+}
+
+.overlay-panel {
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+    height: 100%;
+    width: 50%;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform .6s ease-in-out;
+}
+
+.overlay-right {
+    right: 0;
+    transform: translateY(0);
+}
+
+.overlay-left {
+    transform: translateY(-20%);
+}
+
+/* Move signin to right */
+.container.right-panel-active .sign-in-container {
+    transform: translateY(100%);
+}
+
+/* Move overlay to left */
+.container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+}
+
+/* Bring signup over signin */
+.container.right-panel-active .sign-up-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+}
+
+/* Move overlay back to right */
+.container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+/* Bring back the text to center */
+.container.right-panel-active .overlay-left {
+    transform: translateY(0);
+}
+
+/* Same effect for right */
+.container.right-panel-active .overlay-right {
+    transform: translateY(20%);
+}
+.comeback {
+    position: absolute;
+    z-index: 102;
+    color:#000;
+}
+p {
+    margin-bottom: 10px;
+}
+.logo {
+    position: absolute;
+    z-index: 103;
+    left: 50%;
+    transform: translate(-50%);
+    background:#000;
+    border-radius: 0 0 10px 10px;
+    padding: 10px;
+    
+}
+
+
+@media (max-width:575px){
+    .form-container form {
+        padding: 0 50px;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    button {
+        font-size: 12px;
+        padding: 12px 45px;
+    }
+    .logo img{
+        width: unset;
+    }
+    .comeback  {
+        top: 0;
+        bottom: unset;
+    }
+
+}
+
+@media (min-width: 320px) {
+    .form-container form {
+        padding: 0 8px;
+    }
+    h1 {
+        font-size: 26px;
+    }
+    button {
+        font-size: 10px;
+        padding: 10px;
+    }
+    .logo img{
+        width: 200px;
+    }
+    .comeback  {
+        bottom: 0;
+    }
+    .overlay-panel{
+        padding: 0 8px;
+    }
+}
